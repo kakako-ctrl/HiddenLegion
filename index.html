@@ -178,7 +178,6 @@
             height: auto;
             margin-top: 20px;
         }
-
     </style>
 </head>
 <body>
@@ -335,23 +334,21 @@
         // Initialize notes display
         renderNotes();
 
-             // Snowflake animation
+        // Snowflake animation
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.className = 'snowflake';
             snowflake.style.left = `${Math.random() * 100}%`;
-            snowflake.style.animationDuration = `${3 + Math.random() * 5}s`; // Random duration
-            snowflake.style.opacity = `${0.5 + Math.random() * 0.5}`; // Random opacity
-            document.body.appendChild(snowflake);
-
-            // Remove snowflake after animation ends
-            setTimeout(() => {
-                snowflake.remove();
-            }, 8000); // Matches the animation duration
+            document.querySelector('.snow').appendChild(snowflake);
         }
 
-        // Generate snowflakes at regular intervals
-        setInterval(createSnowflake, 200);
+        function createSnowfall() {
+            setInterval(() => {
+                createSnowflake();
+            }, 100);
+        }
+
+        createSnowfall();
     </script>
 </body>
 </html>
