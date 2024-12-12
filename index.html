@@ -22,7 +22,7 @@
             text-shadow: 0 0 10px #fff, 0 0 20px #e60000; /* Glowing red */
             animation: snowfall 10s linear infinite;
             font-family: 'Great Vibes', cursive;
-            margin-top: 50px;
+            margin-top: 20px;
         }
 
         /* Snowflake animation */
@@ -174,7 +174,7 @@
         #logo {
             display: block;
             margin: 0 auto;
-            width: 100px; /* Adjust the size as needed */
+            width: 200px; /* Adjust the size as needed */
             height: auto;
             margin-top: 20px;
         }
@@ -184,8 +184,8 @@
 <body>
     <div class="snow"></div>
     
-    <!-- Logo section -->
-    <img id="logo" src="logo.png" alt="Hidden Web Logo" />
+    <!-- Logo section with GIF -->
+    <img id="logo" src="logo.gif" alt="Hidden Web Logo" />
 
     <h1>𝐻𝒾𝒹𝒹𝑒𝓃 𝓌𝑒𝒷</h1>
 
@@ -319,14 +319,12 @@
             if (notes[index].liked) return;
             notes[index].likes += 1;
             notes[index].liked = true;
-            notes[index].views += 1;  // Automatically increment view count when liked
-            likedNotes.push(index);  // Track liked notes
+            notes[index].views += 1; // Increment view count when liked
             localStorage.setItem('notes', JSON.stringify(notes)); // Update localStorage
-            localStorage.setItem('likedNotes', JSON.stringify(likedNotes)); // Update liked notes in localStorage
             renderNotes();
         }
 
-        // Function to delete a note (admin only)
+        // Function to delete a note
         function deleteNote(index) {
             if (!isAdmin) return;
             notes.splice(index, 1);
@@ -334,20 +332,26 @@
             renderNotes();
         }
 
-        // Snowflake effect
-        function createSnowflakes() {
-            const snowContainer = document.querySelector('.snow');
-            for (let i = 0; i < 100; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
-                snowflake.style.animationDuration = Math.random() * 3 + 3 + 's'; // Random fall speed
-                snowflake.style.animationDelay = Math.random() * 5 + 's'; // Random start time
-                snowContainer.appendChild(snowflake);
-            }
+        // Initialize notes display
+        renderNotes();
+
+             // Snowflake animation
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.style.left = `${Math.random() * 100}%`;
+            snowflake.style.animationDuration = `${3 + Math.random() * 5}s`; // Random duration
+            snowflake.style.opacity = `${0.5 + Math.random() * 0.5}`; // Random opacity
+            document.body.appendChild(snowflake);
+
+            // Remove snowflake after animation ends
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000); // Matches the animation duration
         }
 
-        createSnowflakes();
+        // Generate snowflakes at regular intervals
+        setInterval(createSnowflake, 200);
     </script>
 </body>
 </html>
